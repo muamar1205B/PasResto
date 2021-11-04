@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_resto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageView
+            android:id="@+id/list_poster"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/list_namaResto_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:text="Nama Restoran"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="195dp"
+                android:layout_height="2dp"
+                android:layout_below="@id/list_namaResto_txt"
+                android:layout_marginLeft="11dp"
+                android:layout_marginTop="3dp"
+                android:background="#EC6A2E" />
+
+            <TextView
+                android:id="@+id/list_kota_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deskripsi"
+                android:textSize="16dp"
+                android:layout_below="@+id/line"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/white"
+                />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
