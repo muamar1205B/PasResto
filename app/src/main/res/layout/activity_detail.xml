@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,95 +7,100 @@
     tools:context=".DetailActivity"
     android:background="#26438F">
 
-    <ImageView
-        android:id="@+id/detail_detailImage"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/ic_launcher_background"
-        android:layout_centerHorizontal="true"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/detailImage"
+            android:layout_width="match_parent"
+            android:layout_height="235dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/detailName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-15dp"
+            android:layout_below="@id/detailImage"
+            android:paddingLeft="22dp"
+            android:text="Resto Name"
+            android:textColor="#EC6A2E"
+            android:textSize="22dp" />
+
+        <ImageButton
+            android:id="@+id/favImageBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/detailImage"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="-15dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/fav_logo" />
+
+        <TextView
+            android:id="@+id/detailCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailName"
+            android:paddingLeft="22dp"
+            android:text="City"
+            android:textColor="#EC6A2E"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/detailDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailCity"
+            android:paddingLeft="22dp"
+            android:text="lorem ipsum"
+            android:textColor="#ffff"
+            android:textSize="16dp" />
 
     <TextView
-        android:id="@+id/detail_namaRestoran_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nama Restoran"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/detail_detailImage"
-        android:layout_marginTop="60dp"
-        />
-    <TextView
-        android:id="@+id/detail_alamatJudul_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Alamat"
-        android:textSize="12dp"
-        android:textColor="#aeb5b0"
-        android:layout_below="@+id/detail_namaRestoran_txt"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="30dp"
-        />
-    <TextView
-        android:id="@+id/detail_alamat_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Alamat"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        android:layout_below="@+id/detail_alamatJudul_txt"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="10dp"
-        />
-    <TextView
-        android:id="@+id/detail_ratingJudul_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rating"
-        android:textSize="12dp"
-        android:textColor="#aeb5b0"
-        android:layout_below="@+id/detail_namaRestoran_txt"
-        android:layout_toRightOf="@+id/detail_alamatJudul_txt"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="130dp"
-        />
-    <TextView
-        android:id="@+id/detail_rating_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rating"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        android:layout_below="@+id/detail_ratingJudul_txt"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/detail_alamatJudul_txt"
-        android:layout_marginLeft="127dp"
-
-        />
-    <TextView
-        android:id="@+id/detail_deskripsiJudul_txt"
+        android:id="@+id/menus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Deskripsi"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        android:layout_below="@+id/detail_alamat_txt"
-        android:layout_marginTop="40dp"
-        android:paddingLeft="70dp"
-        />
-    <TextView
-        android:id="@+id/detail_deskripsi_txt"
+        android:layout_below="@id/detailDesc"
+        android:text="Menus"
+        android:textColor="#EC6A2E"
+        android:textSize="22dp"
+        android:paddingLeft="22dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/detail_deskripsiJudul_txt"
-        android:text="Deskripsi"
-        android:textSize="14dp"
-        android:textColor="#aeb5b0"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="70dp"
-        />
+        android:id="@+id/menulist"
+        android:layout_below="@id/menus"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="22dp"/>
 
+    <TextView
+        android:id="@+id/reviewtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menulist"
+        android:text="Lorem ipsum"
+        android:textColor="#EC6A2E"
+        android:textSize="22dp"
+        android:paddingLeft="22dp"
+        android:layout_marginTop="10dp"/>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/review"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:text="Review"
+        android:textColor="#ffff"
+        android:textSize="16dp"
+        android:layout_below="@id/reviewtext"
+        android:paddingLeft="22dp"/>
+
+    </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>

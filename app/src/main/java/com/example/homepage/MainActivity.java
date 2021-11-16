@@ -5,15 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.SearchView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,11 +37,16 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RestoAdapter adapter;
     ArrayList<RestoModel> restolist;
+    ImageButton mProfilebtn;
+    Button bFavbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mProfilebtn = findViewById(R.id.profilebtn);
+        bFavbtn = findViewById(R.id.favBtn);
 
         getSupportActionBar().hide();
 
@@ -46,8 +61,20 @@ public class MainActivity extends AppCompatActivity {
         adapter = new RestoAdapter(restolist, this);
         recyclerView.setAdapter(adapter);
 
-    }
+        mProfilebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), EditActivity.class));
+            }
+        });
 
+        bFavbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), FavoriteActivity.class));
+            }
+        });
+    }
 
     private void getData() {
         AndroidNetworking.get("https://restaurant-api.dicoding.dev/list")
@@ -79,28 +106,33 @@ public class MainActivity extends AppCompatActivity {
                         anError.printStackTrace();
                     }
                 });
-
-//        private void getData{
-//            AndroidNetworking.get("https://restaurant-api.dicoding.dev/detail/:id")
-//                    .build()
-//                    .getAsJSONObject(new JSONObjectRequestListener() {
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//                            try {
-//                                JSONArray result = response.getJSONArray("restaurants");
-//                                for (int i = 0; i < result.length(); i++) {
-//                                    JSONObject resultObj = result.getJSONObject(i);
-//
-//                                    String menus = resultObj.getString("menus");
-//                                    String customerReviews = resultObj.getString("customerReviews")
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(ANError anError) {
-//                            anError.printStackTrace();
-//                        }
-//                    })
-//        }
     }
-}
+
+    @SuppressLint("ResourceType")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.layout.activity_main, menu);
+        MenuItem item = menu.findItem(R.id.searchtext);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                RestoAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+        public void onBackPressed ()
+        {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+    }

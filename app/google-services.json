@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "958204824761",
+    "project_id": "pasrestaurant2",
+    "storage_bucket": "pasrestaurant2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958204824761:android:321e81b7d8970a2a8b1f68",
+        "android_client_info": {
+          "package_name": "com.example.homepage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "958204824761-5rb16utef36ph06muc5gm7bvnfj5upmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8hGkA28ib6zUfxFUsNtMapW2_kMZwvQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "958204824761-5rb16utef36ph06muc5gm7bvnfj5upmn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958204824761:android:f50a58984c6b77d78b1f68",
+        "android_client_info": {
+          "package_name": "com.example.pasrestaurant2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "958204824761-5rb16utef36ph06muc5gm7bvnfj5upmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8hGkA28ib6zUfxFUsNtMapW2_kMZwvQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "958204824761-5rb16utef36ph06muc5gm7bvnfj5upmn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

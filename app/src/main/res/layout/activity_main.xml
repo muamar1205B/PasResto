@@ -8,7 +8,7 @@
     android:background="#26438F"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -18,32 +18,58 @@
             android:id="@+id/profilebtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
-            android:src="@drawable/profile_button"/>
+            android:layout_marginTop="10dp"
+            android:src="@drawable/profile_button" />
 
         <TextView
+            android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Name Here"
-            android:textColor="@color/white"
-            android:layout_marginTop="22dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="72dp"
+            android:layout_marginTop="10dp"
+            android:text="Welcome,"
+            android:textSize="20dp"
+            android:textColor="@color/white" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/welcome"
+            android:layout_marginLeft="72dp"
+            android:layout_marginTop="-5dp"
+            android:text="Your Name Here"
+            android:textSize="20dp"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/favBtn"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="15dp"
+            android:paddingRight="8dp"
+            android:textColor="@color/white"
+            android:background="@drawable/transparent_background"
+            android:drawableRight="@drawable/fav_logo2"
+            android:text="FAVORITE" />
+
+    </RelativeLayout>
 
     <SearchView
         android:id="@+id/searchtext"
-        android:layout_below="@+id/profilelayout"
-        android:layout_width="340dp"
+        android:layout_width="370dp"
         android:layout_height="110px"
+        android:layout_below="@+id/profilelayout"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="13dp"
-        android:paddingLeft="5dp"
         android:background="@drawable/rounded_background"
+        android:paddingLeft="5dp"
         android:queryHint="Search Restaurant"
         android:searchHintIcon="@drawable/search_icon"
-        android:searchIcon="@drawable/search_icon"/>
+        android:searchIcon="@drawable/search_icon" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/restaurants"

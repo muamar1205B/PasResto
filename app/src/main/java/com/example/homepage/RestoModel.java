@@ -1,12 +1,16 @@
 package com.example.homepage;
 
-public class RestoModel {
+import io.realm.RealmObject;
+
+public class RestoModel extends RealmObject {
 
     private String id;
     private String name;
     private String description;
     private String pictureId;
     private String city;
+
+    public RestoModel(){}
 
     public String getId() {
         return id;
