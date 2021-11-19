@@ -61,4 +61,10 @@ public class FavoriteActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
 }

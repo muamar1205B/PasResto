@@ -2,12 +2,18 @@ package com.example.homepage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,15 +22,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class RestoAdapter extends RecyclerView.Adapter<RestoAdapter.RestaurantViewHolder> {
+import javax.xml.transform.Result;
 
-    public List<RestoModel> restaurantModels;
-    Context context;
+public class RestoAdapter extends RecyclerView.Adapter<RestoAdapter.RestaurantViewHolder> implements Filterable {
+
+    private List<RestoModel> restaurantModels, restaurantModelsAll;
+    private Context context;
+//    private OnItemClickListener mListener;
+
+//    public interface OnItemClickListener {
+//        void onItemClick(int position);
+//    }
+
+//    public void setOnItemClickListener(OnItemClickListener listener) {
+//        mListener = listener;
+//    }
 
     public RestoAdapter(List<RestoModel> restaurantModels, Context context) {
         this.restaurantModels = restaurantModels;
+        restaurantModelsAll = new ArrayList<>(restaurantModels);
         this.context = context;
     }
 
@@ -35,7 +55,7 @@ public class RestoAdapter extends RecyclerView.Adapter<RestoAdapter.RestaurantVi
         return new RestaurantViewHolder(view);
     }
 
-    @Override
+    @Override   
     public void onBindViewHolder(@NonNull RestoAdapter.RestaurantViewHolder holder, int position) {
         holder.tvName.setText(restaurantModels.get(position).getName());
         holder.tvCity.setText(restaurantModels.get(position).getCity());
@@ -61,9 +81,10 @@ public class RestoAdapter extends RecyclerView.Adapter<RestoAdapter.RestaurantVi
 
     public class RestaurantViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName, tvCity;
-        ImageView ivPicture;
-        CardView cvRestaurant;
+        private TextView tvName, tvCity;
+        private ImageView ivPicture;
+        private CardView cvRestaurant;
+//        private RelativeLayout relativeLayout;
 
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +94,51 @@ public class RestoAdapter extends RecyclerView.Adapter<RestoAdapter.RestaurantVi
             ivPicture = itemView.findViewById(R.id.list_poster);
             cvRestaurant = itemView.findViewById(R.id.cv_resto);
             cvRestaurant.setBackgroundResource(R.drawable.transparent_background);
+
+//            relativeLayout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (listener != null) {
+//                        int position = getAdapterPosition();
+//                        if (position != RecyclerView.NO_POSITION) {
+//                            listener.onItemClick(position);
+//                        }
+//                    }
+//                }
+//            });
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return restoFilter;
+    }
+
+    private Filter restoFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<RestoModel> filteredList = new ArrayList<>();
+            if (charSequence == null || charSequence.length() == 0) {
+                filteredList.addAll(restaurantModelsAll);
+            } else {
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+                for (RestoModel item : restaurantModelsAll) {
+                    if (item.getName().toLowerCase().contains(filterPattern) || item.getCity().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
+                return results;
+            }
+
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            restaurantModels.clear();
+            restaurantModels.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 }

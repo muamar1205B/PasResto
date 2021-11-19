@@ -16,19 +16,20 @@
 
     <ImageButton
         android:id="@+id/profilebtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
+        android:background="#26438F"
         android:src="@drawable/profile_button" />
 
         <TextView
             android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="72dp"
+            android:layout_marginLeft="70dp"
             android:layout_marginTop="10dp"
-            android:text="Welcome,"
+            android:text="Your Favorite List,"
             android:textSize="20dp"
             android:textColor="@color/white" />
 
@@ -43,20 +44,30 @@
             android:textSize="20dp"
             android:textColor="@color/white" />
 
+
         <TextView
             android:id="@+id/favlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/username"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp"
-            android:text="Favorite List"
-            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/border"
+            android:drawableRight="@drawable/fav_logo2"
+            android:paddingLeft="15dp"
+            android:paddingTop="6dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="8dp"
+            android:text="Favorite List "
+            android:textColor="#FFFFFF"
             android:textSize="24dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="3dp"
             android:id="@+id/dashboard_rv"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/favlist"/>

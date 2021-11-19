@@ -1,36 +1,25 @@
 package com.example.homepage;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.google.firebase.auth.FirebaseAuth;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,14 +28,20 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<RestoModel> restolist;
     ImageButton mProfilebtn;
     Button bFavbtn;
+    SearchView svText;
+    TextView tvRestolist;
+    View line;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        svText = findViewById(R.id.searchtext);
         mProfilebtn = findViewById(R.id.profilebtn);
         bFavbtn = findViewById(R.id.favBtn);
+        tvRestolist = findViewById(R.id.restolist);
+        line = findViewById(R.id.line);
 
         getSupportActionBar().hide();
 
@@ -72,6 +67,50 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), FavoriteActivity.class));
+            }
+        });
+
+        svText.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvRestolist.setVisibility(View.INVISIBLE);
+                line.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        svText.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                tvRestolist.setVisibility(View.VISIBLE);
+                line.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+
+
+        //SEARCH
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.resto_menu, menu);
+//
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        svText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        svText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                try {
+                    adapter.getFilter().filter(s);
+                } catch (Exception e) {
+                    Log.d("error", "" + e.toString());
+                }
+                return false;
             }
         });
     }
@@ -108,10 +147,18 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//    }
+
     @Override
         public void onBackPressed ()
         {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
         }
     }

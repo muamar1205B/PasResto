@@ -3,6 +3,7 @@ package com.example.homepage;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -56,15 +57,6 @@ public class DetailActivity extends AppCompatActivity {
             city = bundle.getString("city");
         }
 
-        AtomicReference<RestoModel> model = new AtomicReference<>(realm.where(RestoModel.class).equalTo("name", name).findFirst());
-        Log.d("TAG", String.valueOf(model));
-        if(model.get() == null){
-            ibFav.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
-        }else {
-            ibFav.setImageTintList(ColorStateList.valueOf(Color.parseColor("#F3C456")));
-        }
-
-
         tvName.setText(name);
         tvDescription.setText(description);
         tvAlamat.setText(city);
@@ -72,19 +64,27 @@ public class DetailActivity extends AppCompatActivity {
                 .load(pictureId)
                 .into(ivPicture);
 
+        AtomicReference<RestoModel> model = new AtomicReference<>(realm.where(RestoModel.class).equalTo("id", id).findFirst());
+        Log.d("TAG", String.valueOf(model));
+        if(model.get() == null){
+            ibFav.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        }else {
+            ibFav.setImageTintList(ColorStateList.valueOf(Color.parseColor("#F3C456")));
+        }
+
         ibFav.setOnClickListener(v -> {
             RestoModel restaurantModel = new RestoModel(id, name, description, pictureId, city);
-            model.set(realm.where(RestoModel.class).equalTo("name", name).findFirst());
+            model.set(realm.where(RestoModel.class).equalTo("id", id).findFirst());
 
             if(model.get() == null){
                 realmHelper.save(restaurantModel);
-                ibFav.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                ibFav.setImageTintList(ColorStateList.valueOf(Color.parseColor("#F3C456")));
                 Toast.makeText(getApplicationContext(), "Added to your favorite", Toast.LENGTH_SHORT).show();
             } else {
                 realmHelper.delete(id);
-                ibFav.setImageTintList(ColorStateList.valueOf(Color.parseColor("#F3C456")));
+                ibFav.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
                 Toast.makeText(getApplicationContext(), "Removed from your favorite", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+        }
 }
