@@ -1,20 +1,23 @@
 package com.example.homepage;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
@@ -23,15 +26,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
 
-import io.realm.RealmList;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,25 +41,27 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<RestoModel> restolist;
     ImageButton mProfilebtn;
     Button bFavbtn;
-    SearchView svText;
     TextView tvRestolist, tvUsername;
     View line;
-    EditText etFullname;
+    EditText etSearch;
+    String API = "https://restaurant-api.dicoding.dev/list";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        svText = findViewById(R.id.searchtext);
         mProfilebtn = findViewById(R.id.profilebtn);
         bFavbtn = findViewById(R.id.favBtn);
         tvRestolist = findViewById(R.id.restolist);
         line = findViewById(R.id.line);
         tvUsername = findViewById(R.id.username);
-        etFullname = findViewById(R.id.fullName);
+        etSearch = findViewById(R.id.searchtext);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         getSupportActionBar().hide();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         recyclerView = findViewById(R.id.restaurants);
 
@@ -68,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         getData();
 
-        adapter = new RestoAdapter(restolist, this);
-        recyclerView.setAdapter(adapter);
+        user.reload();
 
         mProfilebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,51 +86,104 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), FavoriteActivity.class));
             }
         });
-
-        svText.setOnSearchClickListener(new View.OnClickListener() {
+//
+//        svText.setOnSearchClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                tvRestolist.setVisibility(View.INVISIBLE);
+//                line.setVisibility(View.INVISIBLE);
+//            }
+//        });
+//
+//        svText.setOnCloseListener(new SearchView.OnCloseListener() {
+//            @Override
+//            public boolean onClose() {
+//                tvRestolist.setVisibility(View.VISIBLE);
+//                line.setVisibility(View.VISIBLE);
+//                return false;
+//            }
+//        });
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-                tvRestolist.setVisibility(View.INVISIBLE);
-                line.setVisibility(View.INVISIBLE);
-            }
-        });
+            public void run() {
+                //Do something after 100ms
+                if (user != null) {
+                    String name = user.getDisplayName();
+                    String uid = user.getUid();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(name)
+                            .build();
 
-        svText.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                tvRestolist.setVisibility(View.VISIBLE);
-                line.setVisibility(View.VISIBLE);
-                return false;
-            }
-        });
-
-        svText.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        svText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                try {
-                    adapter.getFilter().filter(s);
-                } catch (Exception e) {
-                    Log.d("error", "" + e.toString());
+                    user.updateProfile(profileUpdates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        tvUsername.setText(name);
+                                        Log.d("TEST", "User profile updated.");
+                                    }
+                                }
+                            });
                 }
-                return false;
+            }
+        }, 500);
+
+
+//        svText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//        svText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                try {
+//                    adapter.getFilter().filter(s);
+//                } catch (Exception e) {
+//                    Log.d("error", "" + e.toString());
+//                }
+//                return false;
+//            }
+//        });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("KAS", String.valueOf(s));
+//                restolist.clear();
+                API = "https://restaurant-api.dicoding.dev/search?q=".concat(String.valueOf(s));
+//                getData();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (API == "https://restaurant-api.dicoding.dev/search?q="){
+                    restolist.clear();
+                    API = "https://restaurant-api.dicoding.dev/list";
+                }
+                getData();
+                Log.d("UWA", "aftertext");
             }
         });
     }
 
+
     private void getData() {
-        AndroidNetworking.get("https://restaurant-api.dicoding.dev/list")
+        AndroidNetworking.get(API)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            restolist.clear();
                             JSONArray result = response.getJSONArray("restaurants");
                             for (int i = 0; i < result.length(); i++) {
                                 JSONObject resultObj = result.getJSONObject(i);
@@ -140,6 +195,9 @@ public class MainActivity extends AppCompatActivity {
                                 String city = resultObj.getString("city");
 
                                 restolist.add(new RestoModel(id, name, description, pictureId, city));
+                                adapter = new RestoAdapter(restolist, getApplicationContext());
+                                recyclerView.setAdapter(adapter);
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

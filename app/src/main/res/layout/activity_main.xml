@@ -57,49 +57,50 @@
             android:text="FAVORITE"
             android:textColor="@color/white" />
 
+        <EditText
+            android:id="@+id/searchtext"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/username"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="8dp"
+            android:maxLines="1"
+            android:background="@drawable/rounded_background"
+            android:drawableStart="@drawable/search_icon"
+            android:paddingHorizontal="15dp" />
+
+
+        <TextView
+            android:id="@+id/restolist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchtext"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Restaurant List"
+            android:textColor="#EC6A2E"
+            android:textSize="32dp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="215dp"
+            android:layout_height="2dp"
+            android:layout_below="@id/restolist"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="10dp"
+            android:background="#EC6A2E"
+            android:layout_centerHorizontal="true"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/restaurants"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line"
+            android:layout_marginTop="2dp" />
+
 
     </RelativeLayout>
-
-    <SearchView
-        android:id="@+id/searchtext"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_below="@+id/profilelayout"
-        android:layout_alignParentRight="true"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/rounded_background"
-        android:queryHint="Search Restaurant"
-        android:maxWidth="1000000dp"
-        android:searchHintIcon="@drawable/search_icon"
-        android:searchIcon="@drawable/search_icon" />
-
-
-    <TextView
-        android:id="@+id/restolist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="75dp"
-        android:text="Restaurant List"
-        android:textColor="#EC6A2E"
-        android:textSize="32dp" />
-
-    <View
-        android:id="@+id/line"
-        android:layout_width="215dp"
-        android:layout_height="2dp"
-        android:layout_below="@id/restolist"
-        android:layout_marginLeft="11dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="10dp"
-        android:background="#EC6A2E" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/restaurants"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/line"
-        android:layout_marginTop="2dp"/>
-
 </RelativeLayout>

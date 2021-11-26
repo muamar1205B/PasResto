@@ -1,27 +1,29 @@
 package com.example.homepage;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class VerifyActivity extends AppCompatActivity {
 
     Button verifyBtn, continueBtn;
-    TextView tvWrongpassword;
+    TextView tvWrongpassword, tvWelcometext;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
     boolean emailVerified = user.isEmailVerified();
@@ -34,13 +36,61 @@ public class VerifyActivity extends AppCompatActivity {
         verifyBtn = findViewById(R.id.verifybutton);
 //        continueBtn = findViewById(R.id.continuebutton);
         tvWrongpassword = findViewById(R.id.wrongpassword);
+        tvWelcometext = findViewById(R.id.welcometext);
 
         getSupportActionBar().hide();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.reload();
+
+        FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            String name = user.getDisplayName();
+            String uid = user.getUid();
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (user != null) {
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(name)
+                                .build();
+
+                        user.updateProfile(profileUpdates)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            tvWelcometext.setText("Welcome, " + name);
+                                            Log.d("TEST", "User profile updated.");
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }, 1000);
+        }
 
         tvWrongpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                    }
+                },300);
+//                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+//                finish();
+//                overridePendingTransition(0, 0);
+//                startActivity(getIntent());
+//                overridePendingTransition(0, 0);
             }
         });
 
@@ -61,7 +111,6 @@ public class VerifyActivity extends AppCompatActivity {
                                     Toast.makeText(VerifyActivity.this,
                                             "Verification email sent to " + user.getEmail(),
                                             Toast.LENGTH_SHORT).show();
-//                                    addAuthListener();
                                 } else {
                                     Log.e(TAG, "sendEmailVerification", task.getException());
                                     Toast.makeText(VerifyActivity.this,
@@ -70,52 +119,9 @@ public class VerifyActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
-//                for(int i = 0; i < verified; i++){
-//                    if (user.isEmailVerified()){
-//                        Log.d("Verified", "Verified");
-//                        startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
-//                    }else{
-//                        user.reload();
-//                        Log.d("reloading", "Reloading");
-//
-//                    }
-//                }
-            }
-        });
-
-//        continueBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                user.reload();
-//                if (user.isEmailVerified()) {
-//                    startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
-//                } else {
-//                    Toast.makeText(VerifyActivity.this,
-//                            "Email Not Verified",
-//                            Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+                }
+            });
     }
-
-
-//    private void addAuthListener() {
-//        auth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                user.reload();
-//                if (user != null) {
-//                    if (user.isEmailVerified()) {
-//                        Log.d("Verified", "Verified");
-//                        startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
-//                    }
-//                }
-//            }
-//        });
-//    }
-
-
 
     @Override
     protected void onResume() {
@@ -125,9 +131,6 @@ public class VerifyActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Do something after 100ms
-//        user = FirebaseAuth.getInstance().getCurrentUser();
-
                 if (user != null) {
                     if (user.isEmailVerified()) {
                         Log.d("Verified", "Verified");
@@ -138,14 +141,11 @@ public class VerifyActivity extends AppCompatActivity {
         }, 1000);
         Log.d("Test","Halo gan");
     }
-
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
+                startActivity(new Intent(getApplicationContext(), VerifyActivity.class));
     }
 }
+
+
 

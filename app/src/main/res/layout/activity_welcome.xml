@@ -44,7 +44,7 @@
         android:layout_width="460dp"
         android:layout_height="472dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="280dp"
+        android:layout_alignParentBottom="true"
         android:src="@drawable/gambar" />
 
 </RelativeLayout>

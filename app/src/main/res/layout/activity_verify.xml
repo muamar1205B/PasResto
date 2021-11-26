@@ -44,11 +44,12 @@
         android:id="@+id/wrongpassword"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_below="@id/verifybutton"
-        android:layout_marginLeft="55dp"
+        android:layout_below="@id/astrotext"
+        android:layout_marginLeft="170dp"
         android:fontFamily="@font/cbold"
         android:text="Wrong Email? Click Here"
-        android:textColor="#FFFFFF"
+        android:textColor="#EC6A2E"
+        android:layout_marginTop="10dp"
         android:textSize="16dp" />
 
 <!--    <Button-->
@@ -65,7 +66,7 @@
         android:layout_width="460dp"
         android:layout_height="472dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="280dp"
+        android:layout_alignParentBottom="true"
         android:src="@drawable/gambar" />
 
 </RelativeLayout>

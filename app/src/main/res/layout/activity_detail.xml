@@ -30,7 +30,7 @@
             android:paddingLeft="15dp"
             android:text="Resto Name"
             android:textColor="#EC6A2E"
-            android:textSize="32dp" />
+            android:textSize="28dp" />
 
         <ImageButton
             android:id="@+id/favImageBtn"

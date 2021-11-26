@@ -87,6 +87,7 @@
             <EditText
                 android:id="@+id/Email"
                 android:layout_width="match_parent"
+                android:maxLines="1"
                 android:layout_height="53dp"
                 android:background="#00000000"
                 android:fontFamily="@font/clight"
@@ -114,6 +115,7 @@
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
+                android:maxLines="1"
                 android:layout_height="53dp"
                 android:background="#00000000"
                 android:fontFamily="@font/clight"

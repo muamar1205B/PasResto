@@ -2,18 +2,12 @@ package com.example.homepage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,10 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import javax.xml.transform.Result;
 
 public class RestoAdapter extends RecyclerView.Adapter<RestoAdapter.RestaurantViewHolder> implements Filterable {
 
@@ -69,6 +60,7 @@ public class RestoAdapter extends RecyclerView.Adapter<RestoAdapter.RestaurantVi
             intent.putExtra("name", restaurantModels.get(position).getName());
             intent.putExtra("city", restaurantModels.get(position).getCity());
             intent.putExtra("pictureId", restaurantModels.get(position).getPictureId());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
 
         });
