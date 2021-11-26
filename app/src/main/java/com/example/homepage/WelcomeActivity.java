@@ -28,4 +28,13 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed ()
+    {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+    }
 }

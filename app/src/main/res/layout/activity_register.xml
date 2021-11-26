@@ -19,7 +19,7 @@
 
     <TextView
         android:text="Finder"
-
+        android:id="@+id/finder"
         android:layout_width="121dp"
         android:layout_height="48dp"
         android:layout_marginLeft="195dp"
@@ -38,13 +38,17 @@
 
 
     <LinearLayout
-        android:layout_width="375dp"
-        android:layout_height="9000dp"
+        android:id="@+id/registerbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/finder"
         android:layout_centerHorizontal="true"
-        android:layout_marginVertical="200dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/input_container_login_style"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,16 +64,15 @@
                 android:layout_marginHorizontal="10dp"
                 android:src="@drawable/username" />
 
-
             <EditText
                 android:id="@+id/fullName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="4dp"
                 android:background="#00000000"
                 android:fontFamily="@font/clight"
                 android:hint="Full name"
-
+                android:maxLines="1"
                 android:textColorHint="@color/white"
                 android:textSize="20dp" />
 
@@ -180,22 +183,31 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/registerbox"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="560dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/cbold"
-        android:text="Already Registered?"
+        android:text="Already Have Account?"
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/createText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="230dp"
-        android:layout_marginTop="560dp"
+        android:layout_below="@id/registerbox"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/cbold"
         android:text="Login Here"
         android:textColor="#EC6A2E"
-        android:textSize="20dp" />
+        android:textSize="18dp" />
+
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="-10dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/astronaut" />
 
 </RelativeLayout>

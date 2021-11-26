@@ -4,8 +4,6 @@ import android.util.Log;
 
 import java.util.List;
 
-import com.example.homepage.RestoModel;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -35,16 +33,11 @@ public class RealmHelper {
         return results;
     }
 
-    public void update(final String id, final String name, final String description, final String city){
-        realm.executeTransaction(realm1 -> {
-            RestoModel restaurantModel = realm.where(RestoModel.class)
-                    .equalTo("id", id)
-                    .findFirst();
-            restaurantModel.setName(name);
-            restaurantModel.setDescription(description);
-            restaurantModel.setCity(city);
 
-        });
+    public RealmResults<RestoModel> getRestoById(String id) {
+        final RealmResults<RestoModel> results = realm.where(RestoModel.class).equalTo("id", id).findAll();
+
+        return results;
     }
 
     public void delete(String id){

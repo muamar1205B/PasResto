@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/detailImage"
             android:layout_width="match_parent"
-            android:layout_height="235dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
@@ -25,12 +25,12 @@
             android:id="@+id/detailName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-15dp"
             android:layout_below="@id/detailImage"
-            android:paddingLeft="22dp"
+            android:layout_marginTop="-10dp"
+            android:paddingLeft="15dp"
             android:text="Resto Name"
             android:textColor="#EC6A2E"
-            android:textSize="22dp" />
+            android:textSize="32dp" />
 
         <ImageButton
             android:id="@+id/favImageBtn"
@@ -38,7 +38,7 @@
             android:layout_height="50dp"
             android:layout_below="@+id/detailImage"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="-15dp"
+            android:layout_marginTop="-10dp"
             android:layout_marginRight="15dp"
             android:src="@drawable/fav_logo" />
 
@@ -47,20 +47,51 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/detailName"
-            android:paddingLeft="22dp"
+            android:paddingLeft="15dp"
             android:text="City"
+            android:layout_marginTop="-5dp"
             android:textColor="#EC6A2E"
             android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/detailAlamat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailCity"
+            android:paddingLeft="15dp"
+            android:text="Alamat"
+            android:textColor="#EC6A2E"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/detailCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailAlamat"
+            android:paddingLeft="15dp"
+            android:text="Categories : "
+            android:textColor="#EC6A2E"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/detailCategoryValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detailAlamat"
+            android:paddingLeft="95dp"
+            android:text="Categories"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/detailDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/detailCity"
-            android:paddingLeft="22dp"
-            android:text="lorem ipsum"
+            android:layout_below="@id/detailCategory"
+            android:paddingLeft="15dp"
+            android:text="Deskripsi"
             android:textColor="#ffff"
-            android:textSize="16dp" />
+            android:textSize="15dp" />
 
     <TextView
         android:id="@+id/menus"
@@ -70,25 +101,54 @@
         android:text="Menus"
         android:textColor="#EC6A2E"
         android:textSize="22dp"
-        android:paddingLeft="22dp"/>
+        android:paddingLeft="15dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/menulist"
-        android:layout_below="@id/menus"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="22dp"/>
+        <TextView
+            android:id="@+id/foods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/menus"
+            android:text="Foods"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:paddingLeft="15dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_foods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/foods"
+            android:layout_marginTop="4dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="10dp" />
+        <TextView
+            android:id="@+id/drinks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_foods"
+            android:text="Drinks"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:paddingLeft="15dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_drinks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/drinks"
+            android:layout_marginTop="4dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="10dp"/>
 
     <TextView
         android:id="@+id/reviewtext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/menulist"
-        android:text="Lorem ipsum"
+        android:layout_below="@id/rv_drinks"
+        android:text="Reviews"
         android:textColor="#EC6A2E"
         android:textSize="22dp"
-        android:paddingLeft="22dp"
+        android:paddingLeft="15dp"
         android:layout_marginTop="10dp"/>
 
     <TextView
@@ -99,7 +159,7 @@
         android:textColor="#ffff"
         android:textSize="16dp"
         android:layout_below="@id/reviewtext"
-        android:paddingLeft="22dp"/>
+        android:paddingLeft="15dp"/>
 
     </RelativeLayout>
 
