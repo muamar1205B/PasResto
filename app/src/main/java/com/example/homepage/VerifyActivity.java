@@ -18,15 +18,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class VerifyActivity extends AppCompatActivity {
 
     Button verifyBtn, continueBtn;
     TextView tvWrongpassword, tvWelcometext;
-    FirebaseAuth auth = FirebaseAuth.getInstance();
-    FirebaseUser user = auth.getCurrentUser();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     boolean emailVerified = user.isEmailVerified();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,39 +39,6 @@ public class VerifyActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        user.reload();
-
-        FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null) {
-            String name = user.getDisplayName();
-            String uid = user.getUid();
-            final Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (user != null) {
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(name)
-                                .build();
-
-                        user.updateProfile(profileUpdates)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            tvWelcometext.setText("Welcome, " + name);
-                                            Log.d("TEST", "User profile updated.");
-                                        }
-                                    }
-                                });
-                    }
-                }
-            }, 1000);
-        }
 
         tvWrongpassword.setOnClickListener(new View.OnClickListener() {
             @Override

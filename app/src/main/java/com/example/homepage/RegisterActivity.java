@@ -65,6 +65,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = mPassword.getText().toString().trim();
                 String fullname = mFullname.getText().toString().trim();
 
+                if(TextUtils.isEmpty(fullname)){
+                    mFullname.setError("Name is Required.");
+                    return;
+                }
+
                 if(TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is Required.");
                     return;
@@ -72,11 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(TextUtils.isEmpty(password)){
                     mPassword.setError("Password is Required.");
-                    return;
-                }
-
-                if(TextUtils.isEmpty(fullname)){
-                    mFullname.setError("Name is Required.");
                     return;
                 }
 

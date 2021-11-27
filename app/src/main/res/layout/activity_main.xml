@@ -64,10 +64,11 @@
             android:layout_below="@id/username"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
-            android:drawablePadding="8dp"
-            android:maxLines="1"
             android:background="@drawable/rounded_background"
             android:drawableStart="@drawable/search_icon"
+            android:drawablePadding="8dp"
+            android:textColor="@color/black"
+            android:maxLines="1"
             android:paddingHorizontal="15dp" />
 
 

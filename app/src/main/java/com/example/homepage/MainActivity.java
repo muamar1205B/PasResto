@@ -86,23 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), FavoriteActivity.class));
             }
         });
-//
-//        svText.setOnSearchClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                tvRestolist.setVisibility(View.INVISIBLE);
-//                line.setVisibility(View.INVISIBLE);
-//            }
-//        });
-//
-//        svText.setOnCloseListener(new SearchView.OnCloseListener() {
-//            @Override
-//            public boolean onClose() {
-//                tvRestolist.setVisibility(View.VISIBLE);
-//                line.setVisibility(View.VISIBLE);
-//                return false;
-//            }
-//        });
+
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -129,26 +113,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 500);
 
-
-//        svText.setImeOptions(EditorInfo.IME_ACTION_DONE);
-//        svText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//
-//            @Override
-//            public boolean onQueryTextSubmit(String s) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//                try {
-//                    adapter.getFilter().filter(s);
-//                } catch (Exception e) {
-//                    Log.d("error", "" + e.toString());
-//                }
-//                return false;
-//            }
-//        });
-
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -158,9 +122,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Log.d("KAS", String.valueOf(s));
-//                restolist.clear();
                 API = "https://restaurant-api.dicoding.dev/search?q=".concat(String.valueOf(s));
-//                getData();
             }
 
             @Override
@@ -170,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
                     API = "https://restaurant-api.dicoding.dev/list";
                 }
                 getData();
-                Log.d("UWA", "aftertext");
             }
         });
     }
